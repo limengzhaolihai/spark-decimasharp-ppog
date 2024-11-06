@@ -19,4 +19,8 @@ python ./train.py -f  config/scheduler_tpch.yaml
 ```
 Use tensorboard to monitor the training process, some screenshots of the results are in `artifacts/tb/`
 
+The scheduler's path exists  /spark_sched_sim/schedulders/
+
+The existence of a path for the trainer  /trainers/
+
 
