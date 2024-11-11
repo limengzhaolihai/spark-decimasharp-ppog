@@ -246,8 +246,8 @@ class RolloutWorkerSync(RolloutWorker):
             action, lgprob = self.agent(obs)#lgprob选择动作的概率使用测试的调度器选择的动作       
             new_obs, reward, terminated, truncated, info = self.env.step(action)  
           
-            with open(filename, 'a') as f:  # 打开文件以写入模式 
-                f.write(f"{reward}\n")  # 将奖励写入文件，每个奖励占一行
+            # with open(filename, 'a') as f:  # 打开文件以写入模式 
+            #     f.write(f"{reward}\n")  # 将奖励写入文件，每个奖励占一行
 
             next_wall_time = info["wall_time"]
             rollout_buffer.add(obs, wall_time, list(action.values()), lgprob, reward)     
