@@ -88,34 +88,6 @@ def fair_example():
     print(f'Done! Average job duration: {avg_job_duration:.1f}s', flush=True)
     print()
 
-# def fifo_example():
-#     # FIFO scheduler
-#     scheduler = FIFOScheduler(ENV_KWARGS['num_executors'])
-    
-#     print(f'Example: FIFO Scheduler')
-#     print('Env settings:')
-#     pprint(ENV_KWARGS)
-
-#     print('Running episode...')
-#     avg_job_duration = run_episode(ENV_KWARGS, scheduler)
-
-#     print(f'Done! Average job duration: {avg_job_duration:.1f}s', flush=True)
-
-
-
-# def sjf_example():
-#     # 创建 SJF 调度器实例
-#     scheduler = SJFHeuristicScheduler(ENV_KWARGS['num_executors'])
-    
-#     print(f'Example: SJF Scheduler')
-#     print('Env settings:')
-#     pprint(ENV_KWARGS)
-
-#     print('Running episode...')
-#     avg_job_duration = run_episode(ENV_KWARGS, scheduler)
-
-#     print(f'Done! Average job duration: {avg_job_duration:.1f}s', flush=True)
-#     print()
 
 
 def decima_example():
