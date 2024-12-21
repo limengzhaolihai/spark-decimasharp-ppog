@@ -1,6 +1,6 @@
 # Decima#
 
-Simulator part of Spark https://github.com/ArchieGertsman/spark-sched-sim
+Simulator part of Spark https://hdl.handle.net/2142/121563
 
 
 
