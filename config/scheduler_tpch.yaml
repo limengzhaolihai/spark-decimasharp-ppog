@@ -42,7 +42,7 @@ trainer:
   clip_range: .2
 
   # PPO: end training cycle if approximate KL divergence exceeds `target_kl`
-  target_kl: .01
+  target_kl: .01 #0.05
 
 
   #PPO:control loss function change when clip limit is exceeded
@@ -104,6 +104,7 @@ agent:
 #   policy_mlp_kwargs:
 #     hid_dims: [64, 64]
 #     act_cls: 'Tanh'
+
 # agent:
 #   agent_cls: 'DAGformerScheduler'
 #   embed_dim:  16

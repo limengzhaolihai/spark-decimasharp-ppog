@@ -1,6 +1,6 @@
 # Decima#
 
-Simulator part of Spark https://hdl.handle.net/2142/121563
+Simulator part of Spark(pytorch) https://hdl.handle.net/2142/121563
 
 
 
@@ -8,7 +8,7 @@ Example:
 
 test scheduler  modify the provided config file config/decima_tpch.yaml and examply.py as needed
 ```
-python  ./examples.py --sched [fair|decima]
+python  ./examples.py --sched [fair|decima|decima#]
 ```
 
 

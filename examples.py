@@ -14,8 +14,8 @@ from spark_sched_sim import metrics
 action_str_list=[]
 
 ENV_KWARGS = {
-    'num_executors': 10,
-    'job_arrival_cap': 50,
+    'num_executors': 50,
+    'job_arrival_cap': 1000,
     'job_arrival_rate': 4.e-5,
     'moving_delay': 2000.,
     'warmup_delay': 1000.,
@@ -40,7 +40,7 @@ def main():
     
     parser.add_argument(
         '--sched',
-        choices=['fair', 'decima','fifo','sjf','random'],
+        choices=['fair', 'decima', 'decima#','fifo','sjf','random'],
         dest='sched',
         help='which scheduler to run',
         required=True,
@@ -53,7 +53,8 @@ def main():
         # 'sjf':sjf_example,
         # 'fifo':fifo_example,
         'random':random_example,
-        'decima': decima_example
+        'decima': decima_example,
+        'decima#': decimasharp_example
     }
 
     sched_map[args.sched]()
@@ -118,7 +119,33 @@ def decima_example():
 
     print(f'Done! Average job duration: {avg_job_duration:.1f}s', flush=True)
 
+def decimasharp_example():
+    cfg = load(filename=osp.join('config', 'decima_tpch.yaml'))
 
+    # agent_cfg = cfg['agent'] \
+    #     | {'num_executors': ENV_KWARGS['num_executors'],
+    #        'state_dict_path': osp.join('dagcheckpoint','dagnnmodel79.pt')} #modity  path of model
+    #'models', 'decima', 
+
+
+    agent_cfg = cfg['agent'] \
+        | {'num_executors': ENV_KWARGS['num_executors'],
+           'state_dict_path': osp.join('dagformercheckpoint','dagformermodel499.pt')} #modity  path of model
+    scheduler = make_scheduler(agent_cfg)
+
+    # agent_cfg = cfg['agent'] \
+    #     | {'num_executors': ENV_KWARGS['num_executors'],
+    #        'state_dict_path': osp.join('checkpoint','model299.pt')} #modity  path of model
+    scheduler = make_scheduler(agent_cfg)
+
+    print(f'Example: Decima')
+    print('Env settings:')
+    pprint(ENV_KWARGS)
+
+    print('Running episode...')
+    avg_job_duration = run_episode(ENV_KWARGS, scheduler)
+
+    print(f'Done! Average job duration: {avg_job_duration:.1f}s', flush=True)
 
 def run_episode(env_kwargs, scheduler, seed=1234):
     env = gym.make('spark_sched_sim:SparkSchedSimEnv-v0', **env_kwargs)
