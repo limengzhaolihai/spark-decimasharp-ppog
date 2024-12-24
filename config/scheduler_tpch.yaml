@@ -4,7 +4,7 @@ trainer:
   device: 'cuda'
 
   # name of the trainer's class
-  trainer_cls: 'PPO'
+  trainer_cls: 'PPOG'
 
   # number of training iterations
   num_iterations: 800
