@@ -92,7 +92,7 @@ def fair_example():
 
 
 def decima_example():
-    cfg = load(filename=osp.join('config', 'decima_tpch.yaml'))
+    cfg = load(filename=osp.join('config', 'decima_tpch.yaml'))#The corresponding configuration needs to be modified
 
     # agent_cfg = cfg['agent'] \
     #     | {'num_executors': ENV_KWARGS['num_executors'],
@@ -100,14 +100,14 @@ def decima_example():
     #'models', 'decima', 
 
 
-    agent_cfg = cfg['agent'] \
-        | {'num_executors': ENV_KWARGS['num_executors'],
-           'state_dict_path': osp.join('dagformercheckpoint','dagformermodel499.pt')} #modity  path of model
-    scheduler = make_scheduler(agent_cfg)
-
     # agent_cfg = cfg['agent'] \
     #     | {'num_executors': ENV_KWARGS['num_executors'],
-    #        'state_dict_path': osp.join('checkpoint','model299.pt')} #modity  path of model
+    #        'state_dict_path': osp.join('dagformercheckpoint','dagformermodel799.pt')} #modity  path of model
+    # scheduler = make_scheduler(agent_cfg)
+
+    agent_cfg = cfg['agent'] \
+        | {'num_executors': ENV_KWARGS['num_executors'],
+           'state_dict_path': osp.join('checkpoint','model.pt')} #modity  path of model
     scheduler = make_scheduler(agent_cfg)
 
     print(f'Example: Decima')
@@ -120,7 +120,7 @@ def decima_example():
     print(f'Done! Average job duration: {avg_job_duration:.1f}s', flush=True)
 
 def decimasharp_example():
-    cfg = load(filename=osp.join('config', 'decima_tpch.yaml'))
+    cfg = load(filename=osp.join('config', 'decima_tpch.yaml')) #The corresponding configuration needs to be modified
 
     # agent_cfg = cfg['agent'] \
     #     | {'num_executors': ENV_KWARGS['num_executors'],
@@ -130,15 +130,15 @@ def decimasharp_example():
 
     agent_cfg = cfg['agent'] \
         | {'num_executors': ENV_KWARGS['num_executors'],
-           'state_dict_path': osp.join('dagformercheckpoint','dagformermodel499.pt')} #modity  path of model
+           'state_dict_path': osp.join('dagformercheckpoint','dagformer.pt')} #modity  path of model
     scheduler = make_scheduler(agent_cfg)
 
     # agent_cfg = cfg['agent'] \
     #     | {'num_executors': ENV_KWARGS['num_executors'],
     #        'state_dict_path': osp.join('checkpoint','model299.pt')} #modity  path of model
-    scheduler = make_scheduler(agent_cfg)
+    # scheduler = make_scheduler(agent_cfg)
 
-    print(f'Example: Decima')
+    print(f'Example: Decima#')
     print('Env settings:')
     pprint(ENV_KWARGS)
 

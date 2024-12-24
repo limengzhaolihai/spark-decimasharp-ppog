@@ -37,9 +37,12 @@ sympy==1.12
 tensorboard==2.14.0
 tensorboard-data-server==0.7.1
 threadpoolctl==3.2.0
-
+torch==2.0.1
 torch-geometric==2.3.1
-
+# -f https://download.pytorch.org/whl/cpu/torch_stable.html
+# -f https://data.pyg.org/whl/torch-2.0.1+cpu.html
+torch-scatter==2.1.1
+torch-sparse==0.6.17
 torchaudio==2.0.2
 torchvision==0.15.2
 tqdm==4.66.1
