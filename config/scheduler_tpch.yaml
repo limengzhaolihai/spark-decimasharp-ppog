@@ -7,7 +7,7 @@ trainer:
   trainer_cls: 'PPOG'
 
   # number of training iterations
-  num_iterations: 800
+  num_iterations: 1000
 
   # number of unique job sequences sampled per training iteration
   num_sequences: 4

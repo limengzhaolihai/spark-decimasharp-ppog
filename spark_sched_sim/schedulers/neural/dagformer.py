@@ -79,6 +79,31 @@ class ActorNetwork(nn.Module):
         self.exec_policy_network = ExecPolicyNetwork(
             num_executors, num_dag_features, emb_dims, policy_mlp_kwargs)
 
+class TransformerConvWithBNReparam(nn.Module):
+    def __init__(self, embed_dim, head_dim, num_heads):
+        super(TransformerConvWithBNReparam, self).__init__()
+        self.embed_dim = embed_dim
+        self.head_dim = head_dim
+        self.num_heads = num_heads
+        
+        # TransformerConv Layer
+        self.transformer_conv = gnn.TransformerConv(embed_dim, head_dim, heads=num_heads, root_weight=False)
+        
+        # BatchNorm parameters
+        self.gamma = nn.Parameter(torch.ones(embed_dim))  # Scale factor
+        self.beta = nn.Parameter(torch.zeros(embed_dim))  # Shift factor
+        
+    def forward(self, x, edge_index):
+        # TransformerConv
+        h = self.transformer_conv(x, edge_index)
+        
+        # Apply BatchNorm-like reparameterization
+        h = self.gamma * h + self.beta  # Reparameterization: scale + shift
+        
+        return h
+
+
+
 
 class EncoderNetwork(nn.Module):
     def __init__(self, num_node_features, embed_dim, num_heads, num_layers):
@@ -113,12 +138,15 @@ class EncoderNetwork(nn.Module):
             transformer_layers.append(( 
                 lambda x, y: x + y, 'h0, dagpe -> h0'
             ))
-            transformer_layers.append(( 
-                nn.BatchNorm1d(embed_dim), 'h0 -> h0_norm'
-            ))
-            transformer_layers.append(( 
-                gnn.TransformerConv(embed_dim, head_dim, heads=num_heads, root_weight=False), 'h0_norm, edge_index -> h1'
-            ))
+            # transformer_layers.append(( 
+            #     nn.BatchNorm1d(embed_dim), 'h0 -> h0_norm'
+            # ))
+            # transformer_layers.append(( 
+            #     gnn.TransformerConv(embed_dim, head_dim, heads=num_heads, root_weight=False), 'h0_norm, edge_index -> h1'
+            # ))
+            transformer_layers.append((
+    TransformerConvWithBNReparam(embed_dim, head_dim, num_heads), 'h0, edge_index -> h1'
+))
             transformer_layers.append(( 
                 lambda h1: print("h1 shape before unsqueeze:", h1.shape) or h1, 'h1 -> h1_shape_print'
             ))
