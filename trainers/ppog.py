@@ -128,8 +128,8 @@ class PPOG(Trainer):
             ratio, 1 - self.clip_range, 1 + self.clip_range)
         policy_loss3 = advgs * torch.clamp(
             ratio,-self.alpha*(softsign(ratio-1))+1-self.clip_range-self.alpha*softsign(self.clip_range), -self.alpha*(softsign(ratio-1))+1+self.clip_range+self.alpha*softsign(self.clip_range))
-        policy_loss = -torch.min(policy_loss3, policy_loss2).mean()
-        
+        # policy_loss = -torch.min(policy_loss3, policy_loss2).mean()
+        policy_loss = -policy_loss3.mean()
         entropy_loss = -entropies.mean()
 
         loss = policy_loss + self.entropy_coeff * entropy_loss
