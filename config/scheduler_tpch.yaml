@@ -88,9 +88,17 @@ agent:
   policy_mlp_kwargs:
     hid_dims: [64, 64]
     act_cls: 'Tanh'
+#test
 
 
-
+# agent:
+#   agent_cls: 'DAGformerScheduler'
+#   embed_dim:  16
+#   num_encoder_layers: 6
+#   num_attn_heads: 8
+#   policy_mlp_kwargs:
+#     hid_dims: [64, 64]
+#     act_cls: 'Tanh'  #ReLU
 
 # agent:
 #   agent_cls: 'DecimaSchedulerResnet'      #train scheduling or test scheduling ways

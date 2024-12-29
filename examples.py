@@ -15,13 +15,22 @@ action_str_list=[]
 
 ENV_KWARGS = {
     'num_executors': 50,
-    'job_arrival_cap': 1000,
+    'job_arrival_cap': 10,
     'job_arrival_rate': 4.e-5,
     'moving_delay': 2000.,
     'warmup_delay': 1000.,
     'dataset': 'tpch',
     'render_mode': 'human'
 }
+# ENV_KWARGS = {
+#     'num_executors': 10,
+#     'job_arrival_cap': 50,
+#     'job_arrival_rate': 4.e-5,
+#     'moving_delay': 2000.,
+#     'warmup_delay': 1000.,
+#     'dataset': 'tpch',
+#     'render_mode': 'human'
+# }
 # ENV_KWARGS={
 #   'num_executors': 50,
 #   'job_arrival_cap':200,
@@ -92,7 +101,7 @@ def fair_example():
 
 
 def decima_example():
-    cfg = load(filename=osp.join('config', 'decima_tpch.yaml'))#The corresponding configuration needs to be modified
+    cfg = load(filename=osp.join('config', 'scheduler_tpch.yaml'))#The corresponding configuration needs to be modified
 
     # agent_cfg = cfg['agent'] \
     #     | {'num_executors': ENV_KWARGS['num_executors'],
@@ -120,7 +129,7 @@ def decima_example():
     print(f'Done! Average job duration: {avg_job_duration:.1f}s', flush=True)
 
 def decimasharp_example():
-    cfg = load(filename=osp.join('config', 'decima_tpch.yaml')) #The corresponding configuration needs to be modified
+    cfg = load(filename=osp.join('config', 'scheduler_tpch.yaml')) #The corresponding configuration needs to be modified
 
     # agent_cfg = cfg['agent'] \
     #     | {'num_executors': ENV_KWARGS['num_executors'],
@@ -130,7 +139,7 @@ def decimasharp_example():
 
     agent_cfg = cfg['agent'] \
         | {'num_executors': ENV_KWARGS['num_executors'],
-           'state_dict_path': osp.join('dagformercheckpoint','dagformer.pt')} #modity  path of model
+           'state_dict_path': osp.join('checkpoint','dagformerv3.3.pt')} #modity  path of model
     scheduler = make_scheduler(agent_cfg)
 
     # agent_cfg = cfg['agent'] \
@@ -174,8 +183,8 @@ def run_episode(env_kwargs, scheduler, seed=1234):
         #         # 忽略捕获到的 RuntimeError 错误 再任务处理结束之后可能会出现错误
         #          break
         except ValueError:
-            print("error")
-            # 忽略捕获到的 ValueError 错误
+           
+            # 忽略捕获到的 ValueError 错误 不影响进程
             break
     
     
